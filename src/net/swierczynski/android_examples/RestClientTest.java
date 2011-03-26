@@ -25,7 +25,8 @@ public class RestClientTest extends Activity implements View.OnClickListener {
     }
 
     public void onClick(View view) {
-        new TwitterSearchTask().execute();
+        String query = ((EditText)findViewById(R.id.query)).getText().toString();
+        new TwitterSearchTask(query).execute();
     }
 
     private void showResults(TwitterResults results) {
@@ -41,12 +42,17 @@ public class RestClientTest extends Activity implements View.OnClickListener {
     }
 
     private class TwitterSearchTask extends AsyncTask<Void, Void, TwitterResults> {
+        private String query;
+
+        public TwitterSearchTask(String query) {
+            this.query = query;
+        }
 
         @Override
         protected TwitterResults doInBackground(Void... voids) {
             try {
                 RestTemplate restTemplate = new RestTemplate();
-                return restTemplate.getForObject(ENDPOINT, TwitterResults.class, "android");
+                return restTemplate.getForObject(ENDPOINT, TwitterResults.class, query);
             } catch (RestClientException e) {
                 Log.e(TAG, e.getMessage(), e);
             }

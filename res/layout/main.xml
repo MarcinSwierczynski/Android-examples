@@ -3,11 +3,13 @@
               android:orientation="vertical"
               android:layout_width="fill_parent"
               android:layout_height="fill_parent">
+    <EditText android:id="@+id/query"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"/>
     <EditText android:id="@+id/response"
               android:layout_width="fill_parent"
               android:layout_weight="1"
-              android:layout_height="fill_parent"
-              android:gravity="top"/>
+              android:layout_height="fill_parent"/>
     <Button android:id="@+id/send_request"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
