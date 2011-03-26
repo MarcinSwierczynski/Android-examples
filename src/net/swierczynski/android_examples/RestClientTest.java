@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import net.swierczynski.android_examples.model.TwitterEntry;
+import net.swierczynski.android_examples.model.TwitterResults;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,14 +28,25 @@ public class RestClientTest extends Activity implements View.OnClickListener {
         new TwitterSearchTask().execute();
     }
 
-    private class TwitterSearchTask extends AsyncTask<Void, Void, String> {
+    private void showResults(TwitterResults results) {
+        StringBuilder text = new StringBuilder();
+        for (TwitterEntry twitterEntry : results.getResults()) {
+            text.append("From: ").append(twitterEntry.getFromUser()).append("\n");
+            text.append("Message: ").append(twitterEntry.getText()).append("\n");
+            text.append("\n\n");
+        }
+
+        EditText responseEditText = (EditText) findViewById(R.id.response);
+        responseEditText.setText(text);
+    }
+
+    private class TwitterSearchTask extends AsyncTask<Void, Void, TwitterResults> {
 
         @Override
-        protected String doInBackground(Void... voids) {
+        protected TwitterResults doInBackground(Void... voids) {
             try {
                 RestTemplate restTemplate = new RestTemplate();
-                String result = restTemplate.getForObject(ENDPOINT, String.class, "android");
-                return result;
+                return restTemplate.getForObject(ENDPOINT, TwitterResults.class, "android");
             } catch (RestClientException e) {
                 Log.e(TAG, e.getMessage(), e);
             }
@@ -41,9 +54,8 @@ public class RestClientTest extends Activity implements View.OnClickListener {
         }
 
         @Override
-        protected void onPostExecute(String result) {
-            EditText responseEditText = (EditText) findViewById(R.id.response);
-            responseEditText.setText(result);
+        protected void onPostExecute(TwitterResults results) {
+            showResults(results);
         }
     }
 }
