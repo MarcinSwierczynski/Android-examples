@@ -29,7 +29,9 @@ public class RestClientTest extends Activity implements View.OnClickListener {
 
     public void onClick(View view) {
         String query = ((EditText)findViewById(R.id.query)).getText().toString();
-        new TwitterSearchTask(query).execute();
+        if (query == null || query.length() == 0) {
+            new TwitterSearchTask(query).execute();
+        }
     }
 
     private void showResults(TwitterResults results) {
