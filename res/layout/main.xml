@@ -6,10 +6,12 @@
     <EditText android:id="@+id/query"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"/>
-    <EditText android:id="@+id/response"
-              android:layout_width="fill_parent"
-              android:layout_weight="1"
-              android:layout_height="fill_parent"/>
+    <com.google.android.maps.MapView android:id="@+id/map"
+                                     android:apiKey="0QOfNsyny8URUzR0muozGhqCvepEkhQFvdDCkMw"
+                                     android:layout_width="fill_parent"
+                                     android:layout_height="fill_parent"
+                                     android:layout_weight="1"
+                                     android:clickable="true" />
     <Button android:id="@+id/send_request"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
