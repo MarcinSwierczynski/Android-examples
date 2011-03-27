@@ -26,4 +26,13 @@ public class TwitterEntry {
     public void setFromUser(String fromUser) {
         this.fromUser = fromUser;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("From: ").append(this.getFromUser()).append("\n");
+        stringBuilder.append("Message: ").append(this.getText()).append("\n");
+        stringBuilder.append("\n\n");
+        return stringBuilder.toString();
+    }
 }

@@ -33,15 +33,13 @@ public class RestClientTest extends Activity implements View.OnClickListener {
     }
 
     private void showResults(TwitterResults results) {
-        StringBuilder text = new StringBuilder();
+        StringBuilder stringBuilder = new StringBuilder();
         for (TwitterEntry twitterEntry : results.getResults()) {
-            text.append("From: ").append(twitterEntry.getFromUser()).append("\n");
-            text.append("Message: ").append(twitterEntry.getText()).append("\n");
-            text.append("\n\n");
+            stringBuilder.append(twitterEntry.toString());
         }
 
         EditText responseEditText = (EditText) findViewById(R.id.response);
-        responseEditText.setText(text);
+        responseEditText.setText(stringBuilder);
     }
 
     private class TwitterSearchTask extends AsyncTask<Void, Void, TwitterResults> {
