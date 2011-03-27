@@ -12,6 +12,9 @@ import net.swierczynski.android_examples.model.TwitterResults;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+
 public class RestClientTest extends Activity implements View.OnClickListener {
     protected final static String TAG = RestClientTest.class.getSimpleName();
     public final static String ENDPOINT = "http://search.twitter.com/search.json?q={query}";
@@ -45,7 +48,11 @@ public class RestClientTest extends Activity implements View.OnClickListener {
         private String query;
 
         public TwitterSearchTask(String query) {
-            this.query = query;
+            try {
+                this.query = URLEncoder.encode(query, "UTF-8");
+            } catch (UnsupportedEncodingException e) {
+                Log.e(TAG, e.getMessage(), e);
+            }
         }
 
         @Override
